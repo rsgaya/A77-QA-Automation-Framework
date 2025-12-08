@@ -3,12 +3,27 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.HomePage;
+import pages.LoginPage;
 
 import java.time.Duration;
 
 public class LoginTests extends BaseTest {
+
+
     @Test
-    public void loginEmptyEmailPassword() {
+
+    public void loginValidEmailValidPassword(){
+        LoginPage loginPage = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
+
+        loginPage.provideEmail("demo@testpro.io");
+        loginPage.providePassword("te$t$tudent");
+        loginPage.clickSubmitButton();
+
+        Assert.assertTrue(homePage.getUserAvatar().isDisplayed());
+
+/*    public void loginEmptyEmailPassword() {
 
 //      Added ChromeOptions argument below to fix websocket error
         ChromeOptions options = new ChromeOptions();
@@ -24,5 +39,6 @@ public class LoginTests extends BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(), url);
         driver.quit();
         driver.quit();
+        */
     }
 }
